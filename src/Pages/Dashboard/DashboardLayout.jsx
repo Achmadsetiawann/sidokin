@@ -1,14 +1,14 @@
 import React, {  useState } from "react";
 
 import { getCurrentUser } from "../../API/fireStoreAPI";
-import DashboardComponents from "./DashboardComponents/DashboardComponents";
+import SidebarComponent from "../../CommonComponents/Sidebar/SidebarComponent";
 
 export default function DashboardLayout() {
   const [currentUser, setCurrentUser] = useState({});
 
   return (
     <div>
-      <DashboardComponents currentUser={currentUser}/>
+      <SidebarComponent/>
     </div>
   );
 }

@@ -3,6 +3,8 @@ import HomeLayout from "../Pages/Home/HomeLayout.jsx";
 import LoginLayout from "../Pages/Login/LoginLayout.jsx";
 import RegisterLayout from "../Pages/Register/RegisterLayout.jsx";
 import DashboardLayout from "../Pages/Dashboard/DashboardLayout.jsx";
+import DashboardInputLayout from "../Pages/Dashboard/DashboardInputLayout.jsx";
+
 
 export const router = createBrowserRouter([
   {
@@ -24,5 +26,9 @@ export const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <DashboardLayout />,
+  },
+  {
+    path: "/input",
+    element: <DashboardInputLayout />,
   },
 ]);

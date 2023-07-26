@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 
-export default function LoginLayout() {
+export default function LoginLayout(currentUser) {
 
   let navigate = useNavigate();
   const [credentails, setCredentials] = useState({});
@@ -26,11 +26,11 @@ export default function LoginLayout() {
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <img
-          className="mx-auto h-10 w-auto"
-          src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+          className="mx-auto h-30 w-auto"
+          src="https://kompaskerja.com/wp-content/uploads/2019/11/logo-kemenko-polhukam.jpg"
           alt="Your Company"
         />
-        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+        <h2 className="mt-5 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Sign in to your account
         </h2>
       </div>

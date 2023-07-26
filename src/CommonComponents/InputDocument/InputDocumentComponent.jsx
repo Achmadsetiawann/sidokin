@@ -1,4 +1,5 @@
 import React,{ useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
 
 import { postStatus, getStatus, updatePost } from "../../API/fireStoreAPI"
 
@@ -12,35 +13,35 @@ function classNames(...classes) {
 
 export default function InputDocumentComponent({ currentUser }) {
   
+    let navigate = useNavigate();
     const [status, setStatus] = useState("");
     const [editInputs, setEditInputs] = useState(currentUser)
 
     const sendStatus = async () => {
+
         let object = {
             status: status,
             timeStamp: getCurrentTimeStamp("LLL"),
-            userEmail: currentUser.email,
-            userName: currentUser.name,
+            userEmail: String(currentUser.email),
             postID: getUniqueID(),
-            userID: currentUser.id,
-            postFname: currentUser.first-name,
-            postLname: currentUser.last-name,
-            // postTglPengajuan: currentUser.tgl-pengajuan,
-            // postTglKegiatan: currentUser.tgl-kegiatan,
-            postNamePengajuan: currentUser.nama-pengajuan,
+            postFname: currentUser['first-name'], // Fix this line
+            postLname: currentUser['last-name'],  // Fix this line
+            postTglPengajuan: currentUser['tgl-pengajuan'], // Fix this line
+            postTglKegiatan: currentUser['tgl-kegiatan'],   // Fix this line
+            postNamePengajuan: currentUser['nama-pengajuan'], // Fix this line
             postRAB: currentUser.rab,
-            postKdAnggaran: currentUser.kd-anggaran,
-            postDTor: currentUser.d-tor,
-            postDRab: currentUser.d-rab,
-            postDPeserta: currentUser.d-upeserta,
-            postDNarsum: currentUser.d-unarsum,
-            postDSpk: currentUser.d-spk,
-            postDCLHotel: currentUser.d-clhotel,
-            postDRundown: currentUser.d-rundown,
+            postKdAnggaran: currentUser['kd-anggaran'], // Fix this line
+            postDTor: currentUser['d-tor'], // Fix this line
+            postDRab: currentUser['d-rab'], // Fix this line
+            postDPeserta: currentUser['d-upeserta'], // Fix this line
+            postDNarsum: currentUser['d-unarsum'], // Fix this line
+            postDSpk: currentUser['d-spk'], // Fix this line
+            postDCLHotel: currentUser['d-clhotel'], // Fix this line
+            postDRundown: currentUser['d-rundown'], // Fix this line
         };
         await postStatus(object);
         await setStatus("");
-      };
+    };
     
     const [valuePengajuan, setValuePengajuan] = useState({ 
         startDate: null  
@@ -50,14 +51,14 @@ export default function InputDocumentComponent({ currentUser }) {
         startDate: null  
         }); 
         
-        const handleDatePengajuan = (newValue) => {
-        console.log("newValue:", newValue); 
-        setValuePengajuan(newValue); 
+        const handleDatePengajuan = (newPengajuan) => {
+        console.log("newPengajuan:", newPengajuan); 
+        setValuePengajuan(newPengajuan); 
         }
 
-        const handleDateKegiatan = (newValue) => {
-            console.log("newValue:", newValue); 
-            setValueKegiatan(newValue); 
+        const handleDateKegiatan = (newKegiatan) => {
+            console.log("newKegiatan:", newKegiatan); 
+            setValueKegiatan(newKegiatan); 
         }
 
   return (
@@ -77,7 +78,7 @@ export default function InputDocumentComponent({ currentUser }) {
 
 
       <div className="mx-auto mt-6 max-w-xl sm:mt-6">
-        <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2">
           
             <div>
                 <label htmlFor="first-name" className="block text-sm font-semibold leading-6 text-gray-900">
@@ -121,7 +122,7 @@ export default function InputDocumentComponent({ currentUser }) {
                 inputClassName = "w-full rounded-md focus:ring-0 bg-green-100 dark:bg-white dark:white:text-black"
                 useRange={false} 
                 asSingle={true}
-                // name="tgl-pengajuan" 
+                name="tgl-pengajuan" 
                 value={valuePengajuan} 
                 onChange={handleDatePengajuan} 
                 /> 
@@ -139,7 +140,7 @@ export default function InputDocumentComponent({ currentUser }) {
                 inputClassName = "w-full rounded-md focus:ring-0 bg-green-100 dark:bg-white dark:white:text-black"
                 useRange={false} 
                 asSingle={true}
-                // name="tgl-kegiatan" 
+                name="tgl-kegiatan" 
                 value={valueKegiatan} 
                 onChange={handleDateKegiatan} 
                 /> 
@@ -202,7 +203,7 @@ export default function InputDocumentComponent({ currentUser }) {
             
             <div className="mt-6 space-y-6">
               
-                <div className="relative flex gap-x-8">
+                <div className="relative flex gap-x-6">
                     <div className="flex h-6 items-center">
                     <input
                         id="tor"
@@ -272,7 +273,8 @@ export default function InputDocumentComponent({ currentUser }) {
 
 
         <div className="sm:col-span-2 border-t border-gray-200">
-        <div className="relative flex gap-x-8 mt-8">
+        <div className="relative flex gap-x-6 mt-6">
+        
             <div className="flex h-6 items-center">
             <input
                 id="spk"
@@ -318,16 +320,184 @@ export default function InputDocumentComponent({ currentUser }) {
             </label>
             </div>
 
+            <div className="flex h-6 items-center">
+            <input
+                id="ABSENSI"
+                name="ABSENSI"
+                value="true"
+                type="checkbox"
+                className="h-4 w-10 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+            />
+            </div>
+            <div className="text-sm leading-6">
+            <label htmlFor="rundown" className="font-medium text-gray-900">
+            ABSENSI
+            </label>
+            </div>
+
         </div>
         </div>
           
 
+        <div className="sm:col-span-2 border-t border-gray-200">
+        <div className="relative flex gap-x-6 mt-8">
+            <div className="flex h-6 items-center">
+            <input
+                id="UANG MUKA"
+                name="UANG MUKA"
+                value="true"
+                type="checkbox"
+                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+            />
+            </div>
+            <div className="text-sm leading-6">
+            <label htmlFor="tor" className="font-medium text-gray-900">
+                UANG MUKA
+            </label>
+            </div>
+
+            <div className="flex h-6 items-center">
+            <input
+                id="KUITANSI"
+                name="KUITANSI"
+                value="true"
+                type="checkbox"
+                className="h-4 w-10 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+            />
+            </div>
+            <div className="text-sm leading-6">
+            <label htmlFor="clhotel" className="font-medium text-gray-900">
+                KUITANSI
+            </label>
+            </div>
+
+            <div className="flex h-6 items-center">
+            <input
+                id="Perjalanan Dinas"
+                name="Perjalanan Dinas"
+                value="true"
+                type="checkbox"
+                className="h-4 w-10 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+            />
+            </div>
+            <div className="text-sm leading-6">
+            <label htmlFor="rundown" className="font-medium text-gray-900">
+                Perjalanan Dinas
+            </label>
+            </div>
+
+
+        </div>
+        </div>
+
+
+        <div className="sm:col-span-2 border-t border-gray-200">
+        <div className="relative flex gap-x-6 mt-8">
+            <div className="flex h-6 items-center">
+            <input
+                id="TIKET DAN BOARDING PASS"
+                name="TIKET DAN BOARDING PASS"
+                value="true"
+                type="checkbox"
+                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+            />
+            </div>
+            <div className="text-sm leading-6">
+            <label htmlFor="tor" className="font-medium text-gray-900">
+            TIKET DAN BOARDING PASS
+            </label>
+            </div>
+
+            <div className="flex h-6 items-center">
+            <input
+                id="KUITANSI KONSUMSI"
+                name="KUITANSI KONSUMSI"
+                value="true"
+                type="checkbox"
+                className="h-4 w-10 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+            />
+            </div>
+            <div className="text-sm leading-6">
+            <label htmlFor="clhotel" className="font-medium text-gray-900">
+                KUITANSI KONSUMSI
+            </label>
+            </div>
+
+            <div className="flex h-6 items-center">
+            <input
+                id="KUITANSI HOTEL"
+                name="KUITANSI HOTEL"
+                value="true"
+                type="checkbox"
+                className="h-4 w-10 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+            />
+            </div>
+            <div className="text-sm leading-6">
+            <label htmlFor="rundown" className="font-medium text-gray-900">
+            KUITANSI HOTEL
+            </label>
+            </div>
+
+        </div>
+        </div>
           
+
+        <div className="sm:col-span-2 border-t border-gray-200">
+        <div className="relative flex gap-x-6 mt-8">
+            <div className="flex h-6 items-center">
+            <input
+                id="SURAT TUGAS INSTANSI"
+                name="SURAT TUGAS INSTANSI"
+                value="true"
+                type="checkbox"
+                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+            />
+            </div>
+            <div className="text-sm leading-6">
+            <label htmlFor="tor" className="font-medium text-gray-900">
+            SURAT TUGAS INSTANSI
+            </label>
+            </div>
+
+            <div className="flex h-6 items-center">
+            <input
+                id="LAPORAN KEGIATAN"
+                name="LAPORAN KEGIATAN"
+                value="true"
+                type="checkbox"
+                className="h-4 w-10 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+            />
+            </div>
+            <div className="text-sm leading-6">
+            <label htmlFor="rundown" className="font-medium text-gray-900">
+            LAPORAN KEGIATAN
+            </label>
+            </div>
+
+            <div className="flex h-6 items-center">
+            <input
+                id="SPPD"
+                name="SPPD"
+                value="true"
+                type="checkbox"
+                className="h-4 w-10 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+            />
+            </div>
+            <div className="text-sm leading-6">
+            <label htmlFor="rundown" className="font-medium text-gray-900">
+                SPPD
+            </label>
+            </div>
+
+        </div>
+        </div>
+
+        
         </div>
         <div className="mt-10">
           <button
             type="button"
-            onClick={sendStatus}
+            onClick={() => navigate('/dashboard')}
             className="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             Subbmit

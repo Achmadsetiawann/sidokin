@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import HomeDashboardComponents from '../HomeDashboard/HomeDashboardComponents';
+import InputDocumentComponent from '../InputDocument/InputDocumentComponent';
 
-export default function SidebarComponent({ currentUser }) {
+export default function SidebarInputComponents({ currentUser }) {
     let navigate = useNavigate();
     const [open, setOpen] = useState(false);
 
@@ -48,7 +48,7 @@ export default function SidebarComponent({ currentUser }) {
                             </li>
                             {/* Logout Button */}
                             <li className="rounded-sm">
-                                <Link to="/login" className="flex items-center p-2 space-x-3 rounded-md">
+                                <Link to="/logout" className="flex items-center p-2 space-x-3 rounded-md">
                                     <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-gray-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
                                     </svg>
@@ -63,7 +63,7 @@ export default function SidebarComponent({ currentUser }) {
             {/* CARD MENU Dashboard */}
             <div className="container mx-auto mt-12">
                 <div>
-                    <HomeDashboardComponents currentUser={currentUser} />
+                    <InputDocumentComponent currentUser={currentUser} />
                 </div>
             </div>
         </div>
